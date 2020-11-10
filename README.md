@@ -1,9 +1,10 @@
 # New ABAP
 ## Content
  - [Select Single Row from Database](#how-to-get-started-with-clean-code)
+ - [Value Operator](#value-operator)
  
 ## Select Single Row from Database 
-> [This section](#how-to-get-started-with-clean-code)
+>(#how-to-get-started-with-clean-code)
 
 ```ABAP
 DATA: lt_result TYPE STANDARD TABLE OF t100,
@@ -180,6 +181,7 @@ WRITE: lv_lines.
 ```
 
 ## Value Operator
+<(#value-operator)
 ```
 TYPES t_itab TYPE STANDARD TABLE OF i
  WITH DEFAULT KEY .
