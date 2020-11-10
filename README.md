@@ -4,13 +4,13 @@
  - [Line Functions](#line-functions)
  - [Value Operator](#value-operator)
  - [Field Symbols](#field-symbols)
- - [Create a RANGE table](#create-range-table)
+ - [Create a RANGE table](#create-a-range-table)
  - [String Templates](#string-templates)
- - [Use of COND](#cond)
- - [GROUP BY for internal tables](#group-by)
- - [Date Format Conversion](#date-format)
- - [Select on Internal Table, ABAP_SORTORDER_TAB](#select-on-internal-table)
- - [REDUCE and FILTER](#reduce-filter)
+ - [Use of COND](#use-of-cond)
+ - [GROUP BY for internal tables](#group-by-for-internal-tables)
+ - [Date Format Conversion](#date-format-conversion)
+ - [Select on Internal Table](#select-on-internal-table)
+ - [REDUCE and FILTER](#reduce-and-filter)
  
  
  
@@ -247,7 +247,7 @@ DATA(itab_multi_comp) =
 ```
 
 ## Create a RANGE table
->(#create-range-table)
+>(#create-a-range-table)
 ```
 TYPES:
   BEGIN OF ty_customer,
@@ -317,7 +317,7 @@ WRITE: / lv_string1.
 ```
 
 ## Use of COND
->(#cond)
+>(#use-of-cond)
 ```
 *Just for testing
 DATA(lv_time) = CONV t( sy-timlo - 12 * 3600 ).
@@ -361,8 +361,8 @@ cl_abap_docu_external=>get_abap_docu_for_adt(
      html      =     html ).
 ```
 
-## GROUP BY for internal tables, replaces AT-ENDAT
->(#group-by)
+## GROUP BY for internal tables
+>(#group-by-for-internal-tables)
 ```
 SELECT * FROM spfli INTO TABLE @DATA(lt_spfli).
 
@@ -406,12 +406,12 @@ cl_demo_output=>display( ).
 ```
 
 ## Date Format Conversion
->(#date-format)
+>(#date-format-conversion)
 ```
 DATA: lv_date TYPE d VALUE '20190718'.
 DATA(lv_user_format) = |{ lv_date DATE = USER }|. "RAW,ISO,USER,ENVIRONMENT
 ```
-## Select on Internal Table, ABAP_SORTORDER_TAB
+## Select on Internal Table
 >(#select-on-internal-table)
 ```
 DATA(sentence) = 'ABAP is excellent'.
@@ -428,7 +428,7 @@ ENDLOOP.
 ```
 
 ## REDUCE and FILTER
->(#reduce-filter)
+>(#reduce-and-filter)
 ```
 SELECT * FROM t100 INTO TABLE @DATA(lt_t100) UP TO 100 ROWS.
 
