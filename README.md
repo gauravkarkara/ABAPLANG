@@ -1,7 +1,8 @@
 # ABAPLANG
 ## Select Single Row from Database
 
-`DATA: lt_result TYPE STANDARD TABLE OF t100,
+```ABAP
+DATA: lt_result TYPE STANDARD TABLE OF t100,
       ls_result TYPE t100.
 
 *To check existence of the row in DB, Following syntax can be used: Using abap_true wont even transfer a single line from DB. So, its much better
@@ -22,5 +23,6 @@ IF sy-subrc = 0.
 * 'Select Single'.
 
 * SCN Link : http://scn.sap.com/community/abap/blog/2015/03/11/selecting-one-line-from-an-database-table
-ENDIF. `
+ENDIF. 
+```
 
