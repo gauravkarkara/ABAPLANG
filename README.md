@@ -387,4 +387,70 @@ cl_demo_output=>display( ).
 DATA: lv_date TYPE d VALUE '20190718'.
 DATA(lv_user_format) = |{ lv_date DATE = USER }|. "RAW,ISO,USER,ENVIRONMENT
 ```
+## Select on Internal Table, ABAP_SORTORDER_TAB
+```
+DATA(sentence) = 'ABAP is excellent'.
+SPLIT condense( sentence ) AT space INTO TABLE DATA(words).
+*out->write( | Number of Words: { lines( words ) } | ).
 
+LOOP AT words ASSIGNING FIELD-SYMBOL(<lfs_words>).
+
+  DATA(characters) = VALUE abap_sortorder_tab( FOR char = 0 THEN char + 1 UNTIL char = strlen( <lfs_words> ) ( name = <lfs_words>+char(1) ) ).
+  SELECT DISTINCT * FROM @characters AS characters INTO TABLE @DATA(unique_characters).
+*out->write( | No of unique chars in the word: { lines( unique_characters ) }| ).
+
+ENDLOOP.
+```
+
+## REDUCE and FILTER
+```
+SELECT * FROM t100 INTO TABLE @DATA(lt_t100) UP TO 100 ROWS.
+
+*Concatenate the values for one column or any other expression - Value output is Single Only
+DATA(lv_string2) = REDUCE string( INIT text1 TYPE string
+FOR wa IN lt_t100
+NEXT text1 = text1 && ' | ' && wa-text ).
+WRITE:/ lv_string2.
+
+TYPES: BEGIN OF lty_item_prices,
+         matnr TYPE matnr,
+         plant TYPE werks_d,
+         price TYPE i,
+       END OF lty_item_prices,
+
+       BEGIN OF lty_item_filter,
+         matnr TYPE matnr,
+         plant TYPE werks_d,
+       END OF lty_item_filter,
+
+       BEGIN OF lty_plant_country,
+         plant TYPE werks_d,
+         land1 TYPE char2,
+       END OF   lty_plant_country.
+
+TYPES: tt_item_prices   TYPE SORTED TABLE OF lty_item_prices WITH NON-UNIQUE KEY primary_key COMPONENTS plant,
+       tt_plant_country TYPE TABLE OF lty_plant_country WITH DEFAULT KEY,
+       tt_item_filter   TYPE TABLE OF lty_item_filter WITH DEFAULT KEY.
+
+DATA(lt_item_prices) = VALUE tt_item_prices( ( matnr = '1010817' plant = '1000' price = 10 )
+                                             ( matnr = '1010818' plant = '1000' price = 10 )
+                                             ( matnr = '1010819' plant = '1000' price = 10 )
+                                             ( matnr = '1010820' plant = '1000' price = 10 )
+                                             ( matnr = '1010827' plant = '2000' price = 20 )
+                                             ( matnr = '1010828' plant = '2000' price = 20 )
+                                             ( matnr = '1010829' plant = '2000' price = 20 )
+                                             ( matnr = '1010830' plant = '2000' price = 20 )
+                                           ).
+
+DATA(lt_plant_country) = VALUE tt_plant_country( ( plant = '1000' land1 = 'IN' )
+                                                 ( plant = '1000' land1 = 'US' )
+                                               ).
+
+*Get Sum of prices for all the plants in India- Value output is Single
+DATA(lv_sum_india) = REDUCE i( INIT sum TYPE i
+                               FOR wa_plant   IN lt_plant_country WHERE ( land1 = 'IN' )
+                               FOR prices  IN lt_item_prices WHERE ( plant = wa_plant-plant )
+                               NEXT sum = sum + prices-price ).
+
+WRITE:/ lv_sum_india.
+```
