@@ -181,7 +181,7 @@ WRITE: lv_lines.
 ```
 
 ## Value Operator
-<(#value-operator)
+>(#value-operator)
 ```
 TYPES t_itab TYPE STANDARD TABLE OF i
  WITH DEFAULT KEY .
