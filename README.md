@@ -362,7 +362,7 @@ cl_abap_docu_external=>get_abap_docu_for_adt(
 ```
 
 ## GROUP BY for internal tables, replaces AT-ENDAT
-(#group-by)
+>(#group-by)
 ```
 SELECT * FROM spfli INTO TABLE @DATA(lt_spfli).
 
@@ -406,13 +406,13 @@ cl_demo_output=>display( ).
 ```
 
 ## Date Format Conversion
-(#date-format)
+>(#date-format)
 ```
 DATA: lv_date TYPE d VALUE '20190718'.
 DATA(lv_user_format) = |{ lv_date DATE = USER }|. "RAW,ISO,USER,ENVIRONMENT
 ```
 ## Select on Internal Table, ABAP_SORTORDER_TAB
-(#select-on-internal-table)
+>(#select-on-internal-table)
 ```
 DATA(sentence) = 'ABAP is excellent'.
 SPLIT condense( sentence ) AT space INTO TABLE DATA(words).
@@ -428,7 +428,7 @@ ENDLOOP.
 ```
 
 ## REDUCE and FILTER
-(#reduce-filter)
+>(#reduce-filter)
 ```
 SELECT * FROM t100 INTO TABLE @DATA(lt_t100) UP TO 100 ROWS.
 
